@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CTF // LEVEL 21</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #111820;
+    --text: #c9d1d9;
+    --muted: #8b949e;
+    --green: #3fb950;
+    --border: #30363d;
+    --danger: #f85149;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Courier New", Courier, monospace;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .wrap {
+    width: min(760px, 100%);
+  }
+  .terminal {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+  .bar {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .body {
+    padding: 28px;
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    letter-spacing: .08em;
+    color: #fff;
+  }
+  .sub {
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .challenge {
+    border-top: 1px solid var(--border);
+    padding: 22px 0;
+  }
+  .challenge:first-of-type {
+    border-top: 0;
+  }
+  .label {
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  code.block {
+    display: block;
+    padding: 12px 14px;
+    background: #090d12;
+    border: 1px solid var(--border);
+    color: #fff;
+    margin: 10px 0 12px;
+    word-break: break-word;
+  }
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    background: #090d12;
+    color: #fff;
+    border: 1px solid var(--border);
+    font: inherit;
+    outline: none;
+  }
+  input:focus {
+    border-color: var(--green);
+  }
+  button {
+    margin-top: 14px;
+    padding: 11px 16px;
+    border: 1px solid var(--green);
+    background: transparent;
+    color: var(--green);
+    font: inherit;
+    cursor: pointer;
+  }
+  button:hover {
+    background: rgba(63,185,80,.08);
+  }
+  .msg {
+    margin-top: 12px;
+    min-height: 20px;
+    color: var(--muted);
+  }
+  .ok { color: var(--green); }
+  .bad { color: var(--danger); }
+  .hidden { display: none; }
+  .payload {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .payload img {
+    width: min(280px, 75vw);
+    background: white;
+    padding: 12px;
+    margin: 16px auto;
+    display: block;
+  }
+  .flag {
+    color: var(--green);
+    font-weight: 700;
+  }
+  .tiny {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="terminal">
+      <div class="bar">secure-session // level_21</div>
+      <div class="body">
+        <h1>CTF // LEVEL 21</h1>
+        <div class="sub">Objective: recover the final flag. Difficulty: easy.</div>
+
+        <div class="challenge">
+          <div class="label">01 // DECODE</div>
+          <div>Recover the handle from this Base64 string:</div>
+          <code class="block">Q1pBUlZPSUQ=</code>
+          <input id="a1" autocomplete="off" placeholder="answer" />
+        </div>
+
+        <div class="challenge">
+          <div class="label">02 // INTERPRET</div>
+          <div>Decode this hexadecimal value as ASCII:</div>
+          <code class="block">3231</code>
+          <input id="a2" autocomplete="off" placeholder="answer" />
+        </div>
+
+        <div class="challenge">
+          <div class="label">03 // SUBMIT FLAG</div>
+          <div>Combine both answers using this format:</div>
+          <code class="block">FLAG{HANDLE_NUMBER}</code>
+          <input id="flag" autocomplete="off" placeholder="FLAG{...}" />
+          <button onclick="checkFlag()">SUBMIT</button>
+          <div id="msg" class="msg"></div>
+        </div>
+
+        <div id="payload" class="payload hidden">
+          <div class="label">ACCESS GRANTED</div>
+          <div class="flag">FLAG ACCEPTED</div>
+          <div style="margin-top:8px;">Payload unlocked.</div>
+          <img alt='Unlocked QR payload' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2ykAAACiElEQVR4nO2bQW7bQAxFH6sBshwBPkCOMrpZ4SP1BtJRcoAA0tLAGL+L0ciK09oN6qRSQS4M2XoLAsSX+Dm0iY/E8O1DODjvvPPOO++887/jbY6AdZMZw3LFVO91X5iP8w/mkyRpBB2fM8DZ1NPIOhpJkt7yn52P8w/mp0WhU8C+j40Y2rMBYGbhq/Nx/jF8uPpuaTxkI2Ygvl7f3V7+zt+O9xWMJ7vhibeWv/O3o9Y3CpiAoX3FUg9GBDHButxby9/5P+IHMzNrgfTyJJhCubKOc2mfvzYf5x/EF/2uFDq0DRqeTwYxo7fq3V7+zt+JYn6SJNIIJGUgSpJyheKMqN9a/s7fieJuNUIpIzTzRxpB/QJ6fffIsxpezPpVHWjEjDQ2Vd1e3x3ys377OqZSD6WqF+mqj9n1u09+5X8Najc1dBhpPGTgHEjjubZZW8vf+TtxeRaXx/DyW1VtbbJcv3vmpyfpaGEu92BmsxMu0fj5wp55SRn7rpNZNwUgZqyLGR3bRiSdfL6xT768fy39OGSYDpqPFopgzwEIWYC/f3fNDy1APFl5NDMFrJvCLGxrwbqvzMf5B/Gr+UbxumW0sfjfHlYm2PurvfG1vsrV5o6NVv43ldK6/90pv/ijOn++9MppXLpmnz/vlV/0e5lK1ss+ajWa9PrumL/sT5JeAtX/BspJ8OD7Vzvn09JkHduzWVf9bx1s5Sv+s/Nx/kF8Pf8dqb3UCO/Pf72/+k94HZ8z6ov/fVIV9nKctPX8nb/Dl6lzzDDUSpftrO7f5OP8X/Hv9icBDELW0IVcZlqrTeit5e/8nVjtb1xt5cyTDpg3Ofz9u0P+1i77L8L/3+28884777zzD+B/Apv+xL4MpVSnAAAAAElFTkSuQmCC' />
+          <div>Scan payload.</div>
+        </div>
+
+        <div class="tiny">No network access required for the challenge logic.</div>
+      </div>
+    </section>
+  </main>
+
+<script>
+function normalize(s) {
+  return s.trim().toUpperCase().replace(/\s+/g, "");
+}
+function checkFlag() {
+  const a1 = normalize(document.getElementById('a1').value);
+  const a2 = normalize(document.getElementById('a2').value);
+  const flag = normalize(document.getElementById('flag').value);
+  const msg = document.getElementById('msg');
+  const payload = document.getElementById('payload');
+
+  const ok1 = a1 === 'CZARVOID';
+  const ok2 = a2 === '21';
+  const okf = flag === 'FLAG{CZARVOID_21}';
+
+  if (ok1 && ok2 && okf) {
+    msg.textContent = 'AUTHENTICATED';
+    msg.className = 'msg ok';
+    payload.classList.remove('hidden');
+    payload.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    msg.textContent = 'ACCESS DENIED // verify each stage';
+    msg.className = 'msg bad';
+    payload.classList.add('hidden');
+  }
+}
+</script>
+</body>
+</html>
